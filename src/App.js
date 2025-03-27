@@ -1,11 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import MainLayout from './mainLayout';
 import MainRoutes from './routes';
 import SignInComp from './signin';
 
 function App() {
+
   return (
    <>
    <Routes>

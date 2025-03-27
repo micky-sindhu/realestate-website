@@ -2,74 +2,22 @@ import React, { useEffect, useState } from "react";
 import { Box, Button, Container,  Menu, MenuItem, Typography,Paper } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import axios from 'axios'; //if we use fetch method we need to process the output data to convert json form but axios gives the output in json format
 import { setStaticHomePageData } from "../redux/action/staticData";
 import { FavoriteBorder, KeyboardArrowDownSharp } from "@mui/icons-material";
 import OptmizedImageComp from "../components/optimizedImage";
 
-const StyledMenu = styled((props) => (
-    <Menu
-      elevation={0}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      {...props}
-    />
-  ))(({ theme }) => ({
-    '& .MuiPaper-root': {
-      borderRadius: 6,
-      marginTop: theme.spacing(1),
-      minWidth: 180,
-      color: 'rgb(55, 65, 81)',
-      boxShadow:
-        'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-      '& .MuiMenu-list': {
-        padding: '4px 0',
-      },
-      '& .MuiMenuItem-root': {
-        '& .MuiSvgIcon-root': {
-          fontSize: 18,
-          color: theme.palette.text.secondary,
-          marginRight: theme.spacing(1.5),
-        },
-        '&:active': {
-          backgroundColor: alpha(
-            theme.palette.primary.main,
-            theme.palette.action.selectedOpacity,
-          ),
-        },
-      },
-      ...theme.applyStyles('dark', {
-        color: theme.palette.grey[300],
-      }),
-    },
-  }));
-
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    ...theme.applyStyles('dark', {
-      backgroundColor: '#1A2027',
-    }),
-  }));
 
 export default function HomePage() {
  const navigate = useNavigate();
  const dispatch = useDispatch()
+ const location = useLocation()
  const userValidation = localStorage.getItem("isValidUser");
  const [currentData,setCurrentData] = useState([])
 
-console.log("staticUserData",currentData[0]);
+console.log("staticUserData",userValidation);
 
 
  const getAllData = () => {
@@ -87,13 +35,13 @@ console.log("staticUserData",currentData[0]);
 
  useEffect(() => {
      console.log("home userValidation:", userValidation);
+     getAllData();
+    //  if (userValidation === "true") {
+    // } else {
+    //     navigate('/');
+    // }
+}, []);
 
-    if (userValidation === "true") {
-        getAllData();
-    } else {
-        navigate('/signin');
-    }
-}, [userValidation]);
 
     return(
         <> {/*shorthand property for react fragment which is used for fast rendering*/}

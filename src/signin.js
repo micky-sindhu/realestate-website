@@ -27,14 +27,14 @@ export default function SignInComp() {
         setTimeout(() => {
           if(staticUserData.username === username && staticUserData.password === password) {
               setValidating(false)
-              navigate('/homepage')
+              navigate('/')
               dispatch(checkAuthUser(true))
               localStorage.setItem("isValidUser", "true");
           } else {
             setValidating(false)
               setError('Invalid User')
               dispatch(checkAuthUser(false))
-              localStorage.setItem("isValidUser", "false");
+              // localStorage.setItem("isValidUser", "false");
           }
         },3000) //adding 3sec delay to feel the user experience better
         
